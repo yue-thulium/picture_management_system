@@ -69,4 +69,20 @@
     <select id="verifyMail" resultType="com.management.picture.model.User">
         select * from pm where email = #{email}
     </select>
+
+    <select id="getUserInf" parameterType="String" resultMap="UserInf">
+        select * from pm as u,pm_role as r where u.username= #{username} and u.pm_role = r.id
+    </select>
+    <resultMap id="UserInf" type="com.management.picture.model.User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="email" column="email"/>
+        <result property="ban" column="ban"/>
+        <result property="phone" column="phone"/>
+        <association property="role" javaType="com.management.picture.model.Role">
+            <id property="id" column="id"/>
+            <result property="role" column="role"/>
+            <result property="permission" column="permission"/>
+        </association>
+    </resultMap>
 </mapper>

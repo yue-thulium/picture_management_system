@@ -75,4 +75,9 @@ public interface UserMapper {
      * 校验邮箱
      */
     User verifyMail(String email);
+
+    /**
+     * 获取用户信息
+     */
+    User getUserInf(String username);
 }

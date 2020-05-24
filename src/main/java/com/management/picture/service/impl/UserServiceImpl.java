@@ -78,4 +78,9 @@ public class UserServiceImpl implements UserService {
     public User verifyMail(String email) {
         return userMapper.verifyMail(email);
     }
+
+    @Override
+    public User getUserInf(String username) {
+        return userMapper.getUserInf(username);
+    }
 }
