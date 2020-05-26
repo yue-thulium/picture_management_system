@@ -1,6 +1,7 @@
 package com.management.picture.controller.user;
 
 import com.management.picture.model.ResultMap;
+import com.management.picture.model.ResultModel;
 import com.management.picture.model.User;
 import com.management.picture.service.UserService;
 import com.management.picture.util.JWTUtil;
@@ -28,12 +29,14 @@ public class LoginAndRegisterController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ResultModel resultModel;
+
     /**
      * 登陆接口
      *
      * 返回码说明：
-     * code: 40010 => 用户名错误（用户名不存在）
-     * code: 40011 => 用户密码校验出错
+     * code: 40010 => 用户名或密码错误
      * code: 200 => 登录完成，发放token
      *
      * @param username 用户名
@@ -46,29 +49,25 @@ public class LoginAndRegisterController {
             @ApiImplicitParam(name = "password", value = "用户密码", required = true)
     })
     @ApiResponses({
-            @ApiResponse(code=40010,message="用户名错误（用户名不存在）"),
-            @ApiResponse(code=40011,message="用户密码校验出错"),
+            @ApiResponse(code=40010,message="用户名或密码错误"),
             @ApiResponse(code=200,message="登录完成，发放token")
     })
-    public ResultMap login(@RequestParam("username") String username,
+    public ResultModel login(@RequestParam("username") String username,
                            @RequestParam("password") String password) {
         String realPassword = userService.getPassword(username);
         String inPutPassword = Md5Encoding.md5SaltEncode(password);
-        resultMap.clear();
-        if (realPassword == null) {
-            return resultMap.fail().code(40010).message("用户名错误");
-        } else if (!realPassword.equals(inPutPassword)) {
-            return resultMap.fail().code(40011).message("密码错误");
-        } else {
-            return resultMap.success().code(200).message(JWTUtil.createToken(username,userService.getUserId(username)));
+        if (realPassword == null || !realPassword.equals(inPutPassword)) {
+            resultModel.setValue(ResultModel.FAIL,40011,"用户名或密码错误");
+        }  else {
+            resultModel.setValue(ResultModel.SUCCESS,200,JWTUtil.createToken(username,userService.getUserId(username)));
         }
+        return resultModel;
     }
 
     /**
      * 注册接口
      *
      * 返回码说明：
-     * code: 1000 => 用户输入的用户名已被注册
      * code: 200 => 注册成功
      *
      * @param username 用户名
@@ -86,22 +85,16 @@ public class LoginAndRegisterController {
             @ApiImplicitParam(name = "phone", value = "用户电话", required = true)
     })
     @ApiResponses({
-            @ApiResponse(code=1000,message="用户输入的用户名已被注册"),
             @ApiResponse(code=200,message="注册成功")
     })
-    public ResultMap register(@RequestParam("username") String username,
+    public ResultModel register(@RequestParam("username") String username,
                               @RequestParam("password") String password,
                               @RequestParam("email") String email,
                               @RequestParam("phone") String phone) {
-        resultMap.clear();
-        String if_password = userService.getPassword(username);
-        if (if_password != null) {
-            return resultMap.fail().code(1000).message("该用户名已被注册！");
-        } else {
-            String md5Password = Md5Encoding.md5SaltEncode(password);
-            userService.addUser(username,md5Password,email,phone);
-            return resultMap.success().code(200).message("注册成功！");
-        }
+        String md5Password = Md5Encoding.md5SaltEncode(password);
+        userService.addUser(username,md5Password,email,phone);
+        resultModel.setValue(ResultModel.SUCCESS,200,"注册成功！");
+        return resultModel;
     }
 
     /**
@@ -119,14 +112,13 @@ public class LoginAndRegisterController {
             @ApiResponse(code=40010,message="用户输入的邮箱已存在绑定账号"),
             @ApiResponse(code=200,message="邮箱未被使用，可以用于当前注册")
     })
-    public ResultMap verifyMail(@RequestParam("email") String email) {
-        resultMap.clear();
+    public ResultModel verifyMail(@RequestParam("email") String email) {
         User user = userService.verifyMail(email);
         if (user != null) {
-            return resultMap.fail().code(40010);
+            resultModel.setValue(ResultModel.FAIL,40010);
         } else {
-            return resultMap.success().code(200);
+            resultModel.setValue(ResultModel.SUCCESS,200);
         }
-
+        return resultModel;
     }
 }

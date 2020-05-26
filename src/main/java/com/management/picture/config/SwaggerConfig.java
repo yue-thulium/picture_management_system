@@ -15,6 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * Created on 2020/4/23.
  *
  * Swagger文档生成工具配置文件类
+ * http://localhost:8082/swagger-ui.html
  *
  * @author Yue Wu
  */
