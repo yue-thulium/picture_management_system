@@ -63,7 +63,7 @@
     <insert id="addUser" parameterType="String">
         INSERT
         into pm
-        values (default,#{username},#{password},#{email},#{phone},default ,default)
+        values (default,#{username},#{password},#{email},#{phone},default ,default ,default)
     </insert>
 
     <select id="verifyMail" resultType="com.management.picture.model.User">
@@ -79,10 +79,33 @@
         <result property="email" column="email"/>
         <result property="ban" column="ban"/>
         <result property="phone" column="phone"/>
+        <result property="icon" column="icon"/>
         <association property="role" javaType="com.management.picture.model.Role">
             <id property="id" column="id"/>
             <result property="role" column="role"/>
             <result property="permission" column="permission"/>
         </association>
     </resultMap>
+
+    <select id="getUserIcon" parameterType="String" resultType="String">
+        select icon from pm where username = #{username}
+    </select>
+
+    <select id="getUserFans" resultType="com.management.picture.model.usual.Fan">
+        select icon,username
+        from pm
+        where id = (SELECT from_user_id FROM pm_relation WHERE rel_type=2 AND to_user_id=#{id})
+    </select>
+
+    <select id="getUserFollows" resultType="com.management.picture.model.usual.Follow">
+        select icon,username
+        from pm
+        where id = (SELECT to_user_id FROM pm_relation WHERE rel_type=2 AND from_user_id=#{id})
+    </select>
+
+    <insert id="setUserFollows">
+        insert
+        into pm_relation
+        values (default ,#{id} , (select id from pm where username = #{username}) ,default)
+    </insert>
 </mapper>

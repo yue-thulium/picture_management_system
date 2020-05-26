@@ -1,6 +1,6 @@
 package com.management.picture.controller.exception;
 
-import com.management.picture.model.ResultMap;
+import com.management.picture.model.result.ResultMap;
 import org.apache.shiro.ShiroException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -2,6 +2,8 @@ package com.management.picture.service.impl;
 
 import com.management.picture.mapper.UserMapper;
 import com.management.picture.model.User;
+import com.management.picture.model.usual.Fan;
+import com.management.picture.model.usual.Follow;
 import com.management.picture.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,5 +84,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserInf(String username) {
         return userMapper.getUserInf(username);
+    }
+
+    @Override
+    public String getUserIcon(String username) {
+        return userMapper.getUserIcon(username);
+    }
+
+    @Override
+    public List<Fan> getUserFans(String id) {
+        return userMapper.getUserFans(id);
+    }
+
+    @Override
+    public List<Follow> getUserFollows(String id) {
+        return userMapper.getUserFollows(id);
+    }
+
+    @Override
+    public int setUserFollows(String id, String username) {
+        return userMapper.setUserFollows(id,username);
     }
 }

@@ -1,4 +1,4 @@
-package com.management.picture.model;
+package com.management.picture.model.result;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

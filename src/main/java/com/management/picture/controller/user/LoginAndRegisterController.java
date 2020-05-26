@@ -1,7 +1,7 @@
 package com.management.picture.controller.user;
 
-import com.management.picture.model.ResultMap;
-import com.management.picture.model.ResultModel;
+import com.management.picture.model.result.ResultMap;
+import com.management.picture.model.result.ResultModel;
 import com.management.picture.model.User;
 import com.management.picture.service.UserService;
 import com.management.picture.util.JWTUtil;

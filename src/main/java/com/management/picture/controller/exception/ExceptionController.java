@@ -1,7 +1,6 @@
 package com.management.picture.controller.exception;
 
-import com.management.picture.model.ResultMap;
-import io.swagger.annotations.Api;
+import com.management.picture.model.result.ResultMap;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

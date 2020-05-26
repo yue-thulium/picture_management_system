@@ -1,6 +1,8 @@
 package com.management.picture.service;
 
 import com.management.picture.model.User;
+import com.management.picture.model.usual.Fan;
+import com.management.picture.model.usual.Follow;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -77,4 +79,24 @@ public interface UserService {
      * 获取用户信息
      */
     User getUserInf(String username);
+
+    /**
+     * 获取用户头像
+     */
+    String getUserIcon(String username);
+
+    /**
+     * 获取用户粉丝
+     */
+    List<Fan> getUserFans(String id);
+
+    /**
+     * 获取用户粉丝
+     */
+    List<Follow> getUserFollows(String id);
+
+    /**
+     * 关注某人
+     */
+    int setUserFollows(String id,String username);
 }

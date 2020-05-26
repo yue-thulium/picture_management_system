@@ -26,4 +26,6 @@ public class User {
     public Role role;
     @ApiModelProperty(value = "用户账户状态")
     public int ban;
+    @ApiModelProperty(value = "用户头像")
+    public String icon;
 }
