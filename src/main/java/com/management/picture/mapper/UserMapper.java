@@ -79,6 +79,16 @@ public interface UserMapper {
     User verifyMail(String email);
 
     /**
+     * 校验用户名
+     */
+    User verifyUsername(String username);
+
+    /**
+     * 校验手机
+     */
+    User verifyPhone(String phone);
+
+    /**
      * 获取用户信息
      */
     User getUserInf(String username);

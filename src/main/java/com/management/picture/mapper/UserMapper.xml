@@ -114,4 +114,12 @@
         from pm_relation
         where from_user_id = #{id} and to_user_id = (select id from pm where username = #{username}) and rel_type = 2
     </delete>
+
+    <select id="verifyUsername" resultType="com.management.picture.model.User">
+        select * from pm where username = #{username}
+    </select>
+
+    <select id="verifyPhone" resultType="com.management.picture.model.User">
+        select * from pm where phone = #{phone}
+    </select>
 </mapper>

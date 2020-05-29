@@ -82,6 +82,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User verifyUsername(String username) {
+        return userMapper.verifyUsername(username);
+    }
+
+    @Override
+    public User verifyPhone(String phone) {
+        return userMapper.verifyPhone(phone);
+    }
+
+    @Override
     public User getUserInf(String username) {
         return userMapper.getUserInf(username);
     }

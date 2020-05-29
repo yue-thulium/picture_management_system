@@ -106,7 +106,7 @@ public class LoginAndRegisterController {
      * @return
      */
     @GetMapping("/verifyMail")
-    @ApiOperation(value = "用户注册的接口", notes = "用于注册邮箱校验")
+    @ApiOperation(value = "用户注册的邮箱校验接口", notes = "用于注册邮箱校验")
     @ApiImplicitParam(name = "email", value = "邮箱地址", required = true)
     @ApiResponses({
             @ApiResponse(code=40010,message="用户输入的邮箱已存在绑定账号"),
@@ -114,6 +114,56 @@ public class LoginAndRegisterController {
     })
     public ResultModel verifyMail(@RequestParam("email") String email) {
         User user = userService.verifyMail(email);
+        if (user != null) {
+            resultModel.setValue(ResultModel.FAIL,40010);
+        } else {
+            resultModel.setValue(ResultModel.SUCCESS,200);
+        }
+        return resultModel;
+    }
+
+    /**
+     * 注册用户名校验接口
+     * 返回码说明：
+     * code: 40010 => 用户输入的用户名已存在
+     * code: 200 => 用户名未被使用
+     * @param username 用户名
+     * @return
+     */
+    @GetMapping("/verifyUsername")
+    @ApiOperation(value = "用户注册的用户名校验接口", notes = "用于注册用户名校验")
+    @ApiImplicitParam(name = "username", value = "用户名", required = true)
+    @ApiResponses({
+            @ApiResponse(code=40010,message="用户输入的用户名已存在"),
+            @ApiResponse(code=200,message="用户名未被使用，可以用于当前注册")
+    })
+    public ResultModel verifyUsername(String username) {
+        User user = userService.verifyUsername(username);
+        if (user != null) {
+            resultModel.setValue(ResultModel.FAIL,40010);
+        } else {
+            resultModel.setValue(ResultModel.SUCCESS,200);
+        }
+        return resultModel;
+    }
+
+    /**
+     * 注册手机号码校验接口
+     * 返回码说明：
+     * code: 40010 => 用户输入的手机号码已存在绑定账号
+     * code: 200 => 手机号码未被使用
+     * @param phone 手机号码
+     * @return
+     */
+    @GetMapping("/verifyPhone")
+    @ApiOperation(value = "用户注册的手机号码校验接口", notes = "用于注册手机号码校验")
+    @ApiImplicitParam(name = "phone", value = "电话号码", required = true)
+    @ApiResponses({
+            @ApiResponse(code=40010,message="用户输入的手机号码已存在绑定账号"),
+            @ApiResponse(code=200,message="手机号码未被使用，可以用于当前注册")
+    })
+    public ResultModel verifyPhone(String phone) {
+        User user = userService.verifyPhone(phone);
         if (user != null) {
             resultModel.setValue(ResultModel.FAIL,40010);
         } else {
