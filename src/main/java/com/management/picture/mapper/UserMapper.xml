@@ -108,4 +108,10 @@
         into pm_relation
         values (default ,#{id} , (select id from pm where username = #{username}) ,default)
     </insert>
+
+    <delete id="dropUserFollows">
+        delete
+        from pm_relation
+        where from_user_id = #{id} and to_user_id = (select id from pm where username = #{username}) and rel_type = 2
+    </delete>
 </mapper>

@@ -15,10 +15,7 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,6 +99,12 @@ public class UserController {
         return userService.getUserFollows(JWTUtil.getUserID(token));
     }
 
+    /**
+     * 用户关注他人操作
+     * @param token 凭证
+     * @param username 被关注人用户名
+     * @return
+     */
     @GetMapping("/setFollows/{username}")
     @ApiOperation("用户关注他人操作接口")
     @ApiImplicitParams({
@@ -117,4 +120,27 @@ public class UserController {
         }
         return resultModel;
     }
+
+    /**
+     * 用户取关他人操作
+     * @param token 凭证
+     * @param username 被取关人用户名
+     * @return
+     */
+    @GetMapping("/dropFollows/{username}")
+    @ApiOperation("用户取关他人操作接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "token", value = "当前用户凭证", required = true),
+            @ApiImplicitParam(name = "username", value = "被取关者用户名", required = true)
+    })
+    @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
+    public ResultModel dropFollows(@RequestHeader String token, @PathVariable String username) {
+        if (userService.dropUserFollows(JWTUtil.getUserID(token),username) > 0) {
+            resultModel.setValue(ResultModel.SUCCESS,200,"已成功取消关注！");
+        } else {
+            resultModel.setValue(ResultModel.FAIL,400,"取消关注失败！");
+        }
+        return resultModel;
+    }
+
 }

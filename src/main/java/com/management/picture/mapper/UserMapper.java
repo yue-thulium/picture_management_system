@@ -102,4 +102,9 @@ public interface UserMapper {
      * 关注某人
      */
     int setUserFollows(String id,String username);
+
+    /**
+     * 取关某人
+     */
+    int dropUserFollows(String id,String username);
 }
