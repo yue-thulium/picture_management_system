@@ -1,0 +1,98 @@
+package com.management.picture.controller;
+
+import com.management.picture.model.Tag;
+import com.management.picture.model.result.ResultModel;
+import com.management.picture.service.TagService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+/**
+ * Created on 2020/5/29.
+ *
+ * 标签Controller
+ * 用于标签的修改及标签的获取
+ *
+ * @author Yue Wu
+ */
+@RestController
+@Api(tags = "分类标签操作相关接口")
+public class TagController {
+
+    @Autowired
+    private TagService tagService;
+
+    @Autowired
+    private ResultModel resultModel;
+
+    @GetMapping("/getAllPictureTag")
+    @ApiOperation("图片相关标签获取接口")
+    @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
+    public List<Tag> getAllTag() {
+        return tagService.getAllPictureTag();
+    }
+
+    @GetMapping("/addPictureTag/{tagName}")
+    @ApiOperation("添加图片相关标签接口")
+    @ApiImplicitParam(name = "tagName", value = "标签名", required = true)
+    @RequiresRoles(logical = Logical.OR, value = {"admin"})
+    public ResultModel addPictureTag(@PathVariable String tagName) {
+        if (tagService.addPictureTag(tagName) < 0) {
+            resultModel.setValue(ResultModel.FAIL,400,"添加失败");
+        } else {
+            resultModel.setValue(ResultModel.SUCCESS,200,"添加成功");
+        }
+        return resultModel;
+    }
+
+    @GetMapping("/deletePictureTagByID/{id}")
+    @ApiOperation("删除图片（ID删除）相关标签接口")
+    @ApiImplicitParam(name = "id", value = "标签ID", required = true)
+    @RequiresRoles(logical = Logical.OR, value = {"admin"})
+    public ResultModel deletePictureTagByID(@PathVariable int id) {
+        if (tagService.deletePictureTagByID(id) < 0) {
+            resultModel.setValue(ResultModel.FAIL,400,"删除失败");
+        } else {
+            resultModel.setValue(ResultModel.SUCCESS,200,"删除成功");
+        }
+        return resultModel;
+    }
+
+    @GetMapping("/deletePictureTagByTagName/{tagName}")
+    @ApiOperation("删除图片（标签名删除）相关标签接口")
+    @ApiImplicitParam(name = "tagName", value = "标签名", required = true)
+    @RequiresRoles(logical = Logical.OR, value = {"admin"})
+    public ResultModel deletePictureTagByTagName(@PathVariable String tagName) {
+        if (tagService.deletePictureTagByTagName(tagName) < 0) {
+            resultModel.setValue(ResultModel.FAIL,400,"删除失败");
+        } else {
+            resultModel.setValue(ResultModel.SUCCESS,200,"删除成功");
+        }
+        return resultModel;
+    }
+
+    @GetMapping("/modifyPictureTag/{id}/{tagName}")
+    @ApiOperation("修改图片相关标签接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "标签ID", required = true),
+            @ApiImplicitParam(name = "tagName", value = "标签名", required = true)
+    })
+    @RequiresRoles(logical = Logical.OR, value = {"admin"})
+    public ResultModel modifyPictureTag(@PathVariable int id, @PathVariable String tagName) {
+        if (tagService.modifyPictureTag(id,tagName) < 0) {
+            resultModel.setValue(ResultModel.FAIL,400,"删除失败");
+        } else {
+            resultModel.setValue(ResultModel.SUCCESS,200,"删除成功");
+        }
+        return resultModel;
+    }
+}

@@ -87,7 +87,7 @@ public class UserController {
     }
 
     /**
-     * 获取用户粉丝信息
+     * 获取用户关注信息
      * @param token 凭证
      * @return 粉丝列表
      */

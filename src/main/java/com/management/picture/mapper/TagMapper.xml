@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.management.picture.mapper.TagMapper">
+    <select id="getAllPictureTag" resultType="com.management.picture.model.Tag">
+        select * from picture_tag
+    </select>
+
+    <insert id="addPictureTag">
+        insert
+        into picture_tag
+        values (default , #{tagName})
+    </insert>
+
+    <delete id="deletePictureTagByID">
+        delete
+        from picture_tag
+        where id = #{id}
+    </delete>
+
+    <delete id="deletePictureTagByTagName">
+        delete
+        from picture_tag
+        where tag_name = #{tagName}
+    </delete>
+
+    <update id="modifyPictureTag">
+        update picture_tag
+        set tag_name = #{newTagName}
+        where id = #{id}
+    </update>
+</mapper>
