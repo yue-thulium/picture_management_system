@@ -10,7 +10,7 @@ import lombok.Data;
  * @author Yue Wu
  */
 @Data
-@ApiModel(description = "用户基础信息请求对象")
+@ApiModel(value = "权限实体对象")
 public class Role {
     @ApiModelProperty(value = "权限ID")
     public int id;

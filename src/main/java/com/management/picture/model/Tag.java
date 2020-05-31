@@ -16,4 +16,9 @@ public class Tag {
     private int id;
     @ApiModelProperty(value = "标签名称")
     private String tag_name;
+
+    public Tag(int id, String tag_name) {
+        this.id = id;
+        this.tag_name = tag_name;
+    }
 }
