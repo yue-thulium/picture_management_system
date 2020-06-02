@@ -2,7 +2,7 @@ package com.management.picture.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.management.picture.model.Tag;
-import com.management.picture.model.picture.PictureAlbum;
+import com.management.picture.model.body.PictureAlbum;
 import com.management.picture.model.result.ResultListModel;
 import com.management.picture.model.result.ResultModel;
 import com.management.picture.service.PictureAlbumService;

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.management.picture.mapper.CollectionMapper">
+    <insert id="collectionAlbum">
+        insert
+        into picture_album_collection
+        values (default ,#{pm_id} ,#{pa_id});
+    </insert>
+
+    <delete id="enCollectionAlbum">
+        delete
+        from picture_album_collection
+        where pm_id = #{pm_id} and pa_id = #{pa_id};
+    </delete>
+
+    <select id="ifCollectionAlbum" resultType="java.lang.Integer">
+        select count(*)
+        from picture_album_collection
+        where pm_id = #{pm_id} and pa_id = #{pa_id}
+    </select>
+
+    <insert id="collectionTopic">
+        insert
+        into topic_collection
+        values (default ,#{pm_id} ,#{topic_id})
+    </insert>
+
+    <delete id="enCollectionTopic">
+        delete
+        from topic_collection
+        where pm_id = #{pm_id} and topic_id = #{topic_id}
+    </delete>
+
+    <select id="ifCollectionTopic" resultType="java.lang.Integer">
+        select count(*)
+        from topic_collection
+        where pm_id = #{pm_id} and topic_id = #{topic_id}
+    </select>
+</mapper>

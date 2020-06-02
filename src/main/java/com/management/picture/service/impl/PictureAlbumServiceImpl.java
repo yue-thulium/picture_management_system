@@ -1,8 +1,7 @@
 package com.management.picture.service.impl;
 
 import com.management.picture.mapper.PictureAlbumMapper;
-import com.management.picture.model.Tag;
-import com.management.picture.model.picture.PictureAlbum;
+import com.management.picture.model.body.PictureAlbum;
 import com.management.picture.service.PictureAlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

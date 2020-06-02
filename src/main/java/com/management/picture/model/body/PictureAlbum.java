@@ -1,4 +1,4 @@
-package com.management.picture.model.picture;
+package com.management.picture.model.body;
 
 import com.management.picture.model.Tag;
 import io.swagger.annotations.ApiModel;

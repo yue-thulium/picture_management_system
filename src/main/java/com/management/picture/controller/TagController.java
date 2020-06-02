@@ -202,7 +202,7 @@ public class TagController {
      * @param tagName 标签名
      * @return
      */
-    @GetMapping("/modifyPictureTag/{id}/{tagName}")
+    @GetMapping("/modifyTopicTag/{id}/{tagName}")
     @ApiOperation("修改话题相关标签接口*管理员接口")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "标签ID", required = true),

@@ -1,7 +1,6 @@
 package com.management.picture.mapper;
 
-import com.management.picture.model.Tag;
-import com.management.picture.model.picture.PictureAlbum;
+import com.management.picture.model.body.PictureAlbum;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

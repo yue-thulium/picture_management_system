@@ -9,7 +9,7 @@
         SELECT * from view_of_album order by view_of_album.create_time desc LIMIT #{pageNumber},6
     </select>
     
-    <resultMap id="pictureAlbum" type="com.management.picture.model.picture.PictureAlbum">
+    <resultMap id="pictureAlbum" type="com.management.picture.model.body.PictureAlbum">
         <id property="id" column="pid"/>
         <result property="username" column="username"/>
         <result property="icon" column="icon"/>
@@ -27,7 +27,7 @@
         SELECT * from view_of_album where username = #{username} order by view_of_album.create_time desc LIMIT #{pageNumber},6
     </select>
 
-    <insert id="releaseAlbum" parameterType="com.management.picture.model.picture.PictureAlbum" useGeneratedKeys="true" keyProperty="id">
+    <insert id="releaseAlbum" parameterType="com.management.picture.model.body.PictureAlbum" useGeneratedKeys="true" keyProperty="id">
         insert
         into picture_album
         values (default , #{pm_id}, #{tittle}, #{picture}, default ,default )

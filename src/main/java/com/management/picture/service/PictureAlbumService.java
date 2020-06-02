@@ -1,7 +1,6 @@
 package com.management.picture.service;
 
-import com.management.picture.model.Tag;
-import com.management.picture.model.picture.PictureAlbum;
+import com.management.picture.model.body.PictureAlbum;
 
 import java.util.List;
 
