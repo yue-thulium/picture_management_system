@@ -116,7 +116,7 @@ public class CollectionController {
      * @return
      */
     @GetMapping("/collectionTopic/{topic_id}")
-    @ApiOperation("图册收藏添加接口")
+    @ApiOperation("话题收藏添加接口")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "token", value = "凭证", required = true),
             @ApiImplicitParam(name = "topic_id", value = "话题ID", required = true)
@@ -143,7 +143,7 @@ public class CollectionController {
      * @return
      */
     @GetMapping("/enCollectionTopic/{topic_id}")
-    @ApiOperation("图册收藏取消接口")
+    @ApiOperation("话题收藏取消接口")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "token", value = "凭证", required = true),
             @ApiImplicitParam(name = "topic_id", value = "话题ID", required = true)
@@ -170,7 +170,7 @@ public class CollectionController {
      * @return
      */
     @GetMapping("/ifCollectionTopic/{topic_id}")
-    @ApiOperation("图册获取当前用户是否已经收藏当前显示的这个图片")
+    @ApiOperation("话题获取当前用户是否已经收藏当前显示的这个图片")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "token", value = "凭证", required = true),
             @ApiImplicitParam(name = "topic_id", value = "话题ID", required = true)
