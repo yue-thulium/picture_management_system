@@ -97,7 +97,7 @@ public class PictureAlbumController {
     public ResultListModel getOnePageAlbum(@PathVariable int pageNumber) {
         List<PictureAlbum> pictureAlbumList = pictureAlbumService.getOnePageAlbum(pageNumber - 6);
         if (pictureAlbumList.size() <= 0) {
-            resultListModel.setValue(ResultListModel.FAIL,40144);
+            resultListModel.setValue(ResultListModel.FAIL,40144,null);
         } else {
             resultListModel.setValue(ResultListModel.SUCCESS,200,pictureAlbumList);
         }
@@ -122,9 +122,9 @@ public class PictureAlbumController {
     })
     @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
     public ResultListModel getMyAlbum(@RequestHeader String token,@PathVariable int pageNumber) {
-        List<PictureAlbum> pictureAlbumList = pictureAlbumService.getAlbumByUser(JWTUtil.getUsername(token),pageNumber);
+        List<PictureAlbum> pictureAlbumList = pictureAlbumService.getAlbumByUser(JWTUtil.getUsername(token),pageNumber - 6);
         if (pictureAlbumList.size() <= 0) {
-            resultListModel.setValue(ResultListModel.FAIL,40144);
+            resultListModel.setValue(ResultListModel.FAIL,40144,null);
         } else {
             resultListModel.setValue(ResultListModel.SUCCESS,200,pictureAlbumList);
         }
