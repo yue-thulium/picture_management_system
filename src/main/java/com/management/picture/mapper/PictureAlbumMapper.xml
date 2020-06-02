@@ -6,7 +6,10 @@
 
 
     <select id="getOnePageAlbum" resultMap="pictureAlbum">
-        SELECT * from view_of_album order by view_of_album.create_time desc LIMIT #{pageNumber},6
+        SELECT voa.id as pid,voa.username,voa.icon,voa.tittle,voa.picture,voa.create_time,voa.start_number,pt.id,pt.tag_name
+        FROM (SELECT * from view_of_album_2 LIMIT #{pageNumber},6) AS voa,album_tag_relation AS atr,picture_tag AS pt
+        WHERE voa.id=atr.album_id AND atr.tag_id=pt.id
+        order by create_time desc
     </select>
     
     <resultMap id="pictureAlbum" type="com.management.picture.model.body.PictureAlbum">
