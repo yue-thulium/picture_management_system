@@ -45,7 +45,7 @@ public class PictureAlbumController {
      * @param token 凭证
      * @param tittle 标题
      * @param file 图片
-     * @param tagList 标签集合
+     * @param tagList 标签集合 示例： [{"id":1,"tag_name":"涩图1"},{"id":6,"tag_name":"涩图5"}]
      * @return 提示信息
      * @throws IOException
      */
@@ -61,10 +61,7 @@ public class PictureAlbumController {
     public ResultModel releaseAtlas(@RequestHeader String token, @RequestParam("tittle") String tittle,
                                     @RequestParam("file") MultipartFile file, @RequestParam("tags")String tagList) throws IOException {
         String pictureAddress = fastdfsUtils.upload(file);
-        PictureAlbum pictureAlbum = new PictureAlbum();
-        pictureAlbum.setPm_id(Integer.valueOf(JWTUtil.getUserID(token)));
-        pictureAlbum.setTittle(tittle);
-        pictureAlbum.setPicture(pictureAddress);
+        PictureAlbum pictureAlbum = new PictureAlbum(Integer.valueOf(JWTUtil.getUserID(token)),tittle,pictureAddress);
         if (pictureAlbumService.releaseAlbum(pictureAlbum) <= 0){
             resultModel.setValue(ResultModel.FAIL,400,"发布失败");
         } else {

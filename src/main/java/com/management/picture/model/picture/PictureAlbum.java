@@ -34,4 +34,10 @@ public class PictureAlbum {
     private int start_number;
     @ApiModelProperty(value = "分类标签（List）")
     private List<Tag> tagList;
+
+    public PictureAlbum(int pm_id, String tittle, String picture) {
+        this.pm_id = pm_id;
+        this.tittle = tittle;
+        this.picture = picture;
+    }
 }

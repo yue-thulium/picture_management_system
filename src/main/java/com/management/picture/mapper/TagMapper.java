@@ -37,4 +37,29 @@ public interface TagMapper {
      * 修改图片相关标签
      */
     int modifyPictureTag(int id,String newTagName);
+
+    /**
+     * 获取所有话题相关的标签
+     */
+    List<Tag> getAllTopicTag();
+
+    /**
+     * 添加话题相关的标签
+     */
+    int addTopicTag(String tagName);
+
+    /**
+     * 删除话题相关标签 —— 通过id
+     */
+    int deleteTopicTagByID(int id);
+
+    /**
+     * 删除话题相关标签 —— 通过tagName
+     */
+    int deleteTopicTagByTagName(String tagName);
+
+    /**
+     * 修改话题相关标签
+     */
+    int modifyTopicTag(int id,String newTagName);
 }

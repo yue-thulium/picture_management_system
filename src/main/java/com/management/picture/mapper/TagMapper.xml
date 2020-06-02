@@ -30,4 +30,32 @@
         set tag_name = #{newTagName}
         where id = #{id}
     </update>
+
+    <select id="getAllTopicTag" resultType="com.management.picture.model.Tag">
+        select * from topic_tag
+    </select>
+
+    <insert id="addTopicTag">
+        insert
+        into topic_tag
+        values (default , #{tagName})
+    </insert>
+
+    <delete id="deleteTopicTagByID">
+        delete
+        from topic_tag
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteTopicTagByTagName">
+        delete
+        from topic_tag
+        where tag_name = #{tagName}
+    </delete>
+
+    <update id="modifyTopicTag">
+        update topic_tag
+        set tag_name = #{newTagName}
+        where id = #{id}
+    </update>
 </mapper>

@@ -43,4 +43,29 @@ public class TagServiceImpl implements TagService {
     public int modifyPictureTag(int id, String newTagName) {
         return tagMapper.modifyPictureTag(id,newTagName);
     }
+
+    @Override
+    public List<Tag> getAllTopicTag() {
+        return tagMapper.getAllTopicTag();
+    }
+
+    @Override
+    public int addTopicTag(String tagName) {
+        return tagMapper.addTopicTag(tagName);
+    }
+
+    @Override
+    public int deleteTopicTagByID(int id) {
+        return tagMapper.deleteTopicTagByID(id);
+    }
+
+    @Override
+    public int deleteTopicTagByTagName(String tagName) {
+        return tagMapper.deleteTopicTagByTagName(tagName);
+    }
+
+    @Override
+    public int modifyTopicTag(int id, String newTagName) {
+        return tagMapper.modifyTopicTag(id,newTagName);
+    }
 }
