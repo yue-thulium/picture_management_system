@@ -3,7 +3,6 @@ package com.management.picture.controller;
 import com.alibaba.fastjson.JSON;
 import com.management.picture.model.Tag;
 import com.management.picture.model.body.PictureAlbum;
-import com.management.picture.model.requestparam.FormData;
 import com.management.picture.model.result.ResultListModel;
 import com.management.picture.model.result.ResultModel;
 import com.management.picture.service.PictureAlbumService;
@@ -42,22 +41,31 @@ public class PictureAlbumController {
 
     /**
      *  图册添加接口
-     * 标签集合 示例： [{"id":1,"tag_name":"涩图1"},{"id":6,"tag_name":"涩图5"}]
+     *
      * @param token 凭证
-     * @param formData 输入对象
+     * @param tittle 标题
+     * @param file 图片
+     * @param tagList 标签集合 示例： [{"id":1,"tag_name":"涩图1"},{"id":6,"tag_name":"涩图5"}]
      * @return 提示信息
      * @throws IOException
      */
     @PostMapping("/releaseAtlas")
     @ApiOperation("图册添加接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "token", value = "凭证", required = true),
+            @ApiImplicitParam(name = "tittle", value = "标题", required = true),
+            @ApiImplicitParam(name = "file", value = "图片", required = true),
+            @ApiImplicitParam(name = "tags", value = "标签集合", required = true)
+    })
     @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
-    public ResultModel releaseAtlas(@RequestHeader String token, @RequestBody FormData formData) throws IOException {
-        String pictureAddress = fastdfsUtils.upload(formData.getFile());
-        PictureAlbum pictureAlbum = new PictureAlbum(Integer.valueOf(JWTUtil.getUserID(token)),formData.getTittle(),pictureAddress);
+    public ResultModel releaseAtlas(@RequestHeader String token, @RequestParam("tittle") String tittle,
+                                    @RequestParam("file") MultipartFile file, @RequestParam("tags")String tagList) throws IOException {
+        String pictureAddress = fastdfsUtils.upload(file);
+        PictureAlbum pictureAlbum = new PictureAlbum(Integer.valueOf(JWTUtil.getUserID(token)),tittle,pictureAddress);
         if (pictureAlbumService.releaseAlbum(pictureAlbum) <= 0){
             resultModel.setValue(ResultModel.FAIL,400,"发布失败");
         } else {
-            addTags(formData.getTags(),pictureAlbum.getId());
+            addTags(tagList,pictureAlbum.getId());
             resultModel.setValue(ResultModel.SUCCESS,200,"发布成功");
         }
         return  resultModel;
