@@ -32,6 +32,8 @@ public class PictureAlbum {
     private Date create_time;
     @ApiModelProperty(value = "收藏数")
     private int start_number;
+    @ApiModelProperty(value = "评论数")
+    private int comment_number;
     @ApiModelProperty(value = "分类标签（List）")
     private List<Tag> tagList;
 
