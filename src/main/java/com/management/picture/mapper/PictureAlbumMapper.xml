@@ -45,4 +45,10 @@
         into album_tag_relation
         values (default ,#{album_id}, #{tag_id})
     </insert>
+
+    <delete id="deleteAlbum">
+        delete
+        from picture_album
+        where pa_id=#{pa_id}
+    </delete>
 </mapper>

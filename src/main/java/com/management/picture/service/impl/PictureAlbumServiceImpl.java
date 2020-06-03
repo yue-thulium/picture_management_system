@@ -38,4 +38,9 @@ public class PictureAlbumServiceImpl implements PictureAlbumService {
     public int addAlbumTag(int tag_id,int album_id) {
         return pictureAlbumMapper.addAlbumTag(tag_id,album_id);
     }
+
+    @Override
+    public int deleteAlbum(int pa_id) {
+        return pictureAlbumMapper.deleteAlbum(pa_id);
+    }
 }

@@ -30,4 +30,9 @@ public interface PictureAlbumService {
      * 添加标签
      */
     int addAlbumTag(int tag_id,int album_id);
+
+    /**
+     * 删除一个图册（id删除法）
+     */
+    int deleteAlbum(int pa_id);
 }

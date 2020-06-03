@@ -68,7 +68,6 @@ public class PictureAlbumController {
             addTags(tagList,pictureAlbum.getId());
             resultModel.setValue(ResultModel.SUCCESS,200,"发布成功");
         }
-        addTags(tagList,4);
         return  resultModel;
     }
 
@@ -129,5 +128,15 @@ public class PictureAlbumController {
             resultListModel.setValue(ResultListModel.SUCCESS,200,pictureAlbumList);
         }
         return resultListModel;
+    }
+
+    @GetMapping("/deleteAlbum/{pa_id}")
+    public ResultModel deleteAlbum(@RequestHeader String token,@PathVariable int pa_id) {
+        if (pictureAlbumService.deleteAlbum(pa_id) <= 0) {
+            resultModel.setValue(ResultModel.FAIL,400,"删除失败");
+        } else {
+            resultModel.setValue(ResultModel.SUCCESS,200,"删除成功");
+        }
+        return resultModel;
     }
 }
