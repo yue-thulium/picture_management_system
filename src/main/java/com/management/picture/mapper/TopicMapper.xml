@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.management.picture.mapper.TopicMapper">
+    <select id="getAllTopic" resultMap="Topic">
+        SELECT vot.id,vot.pm_id,vot.username,vot.icon,vot.tittle,vot.picture,vot.text,vot.create_time,vot.start_number,tt.id AS tt_id,tt.tag_name
+        FROM (SELECT * FROM view_of_topic ORDER BY create_time DESC LIMIT #{pageNumber},6) AS vot,topic_tag AS tt,topic_tag_relation AS ttr
+        WHERE vot.id=ttr.t_id AND tt.id=ttr.tt_id
+        ORDER BY create_time DESC
+    </select>
+
+    <resultMap id="Topic" type="com.management.picture.model.body.Topic">
+        <id property="id" column="id"/>
+        <result property="pm_id" column="pm_id"/>
+        <result property="username" column="username"/>
+        <result property="icon" column="icon"/>
+        <result property="tittle" column="tittle"/>
+        <result property="picture" column="picture"/>
+        <result property="text" column="text"/>
+        <result property="create_time" column="create_time"/>
+        <result property="start_number" column="start_number"/>
+        <collection property="tagList" javaType="List" ofType="com.management.picture.model.Tag">
+            <id property="id" column="tt_id"/>
+            <result property="tag_name" column="tag_name"/>
+        </collection>
+    </resultMap>
+
+    <select id="getAllTopicByUser" resultMap="Topic">
+        SELECT vot.id,vot.pm_id,vot.username,vot.icon,vot.tittle,vot.picture,vot.text,vot.create_time,vot.start_number,tt.id AS tt_id,tt.tag_name
+        FROM (SELECT * FROM view_of_topic ORDER BY create_time DESC LIMIT #{pageNumber},6) AS vot,topic_tag AS tt,topic_tag_relation AS ttr
+        WHERE vot.id=ttr.t_id AND tt.id=ttr.tt_id AND vot.username=#{username}
+        ORDER BY create_time DESC
+    </select>
+
+    <insert id="releaseTopic" parameterType="com.management.picture.model.body.Topic"  useGeneratedKeys="true" keyProperty="id">
+        insert
+        into topic
+        values (default ,#{tittle},#{pm_id},#{picture},#{text},default ,default )
+    </insert>
+
+    <insert id="addTopicTag">
+        insert
+        into topic_tag_relation
+        values (default ,#{topic_id},#{tag_id})
+    </insert>
+</mapper>

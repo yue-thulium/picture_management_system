@@ -6,7 +6,7 @@
 
 
     <select id="getOnePageAlbum" resultMap="pictureAlbum">
-        SELECT voa.id as pid,voa.username,voa.icon,voa.tittle,voa.picture,voa.create_time,voa.start_number,pt.id,pt.tag_name
+        SELECT voa.id as pid,voa.pm_id,voa.username,voa.icon,voa.tittle,voa.picture,voa.create_time,voa.start_number,pt.id,pt.tag_name
         FROM (SELECT * from view_of_album LIMIT #{pageNumber},6) AS voa,album_tag_relation AS atr,picture_tag AS pt
         WHERE voa.id=atr.album_id AND atr.tag_id=pt.id
         order by create_time desc
@@ -14,6 +14,7 @@
     
     <resultMap id="pictureAlbum" type="com.management.picture.model.body.PictureAlbum">
         <id property="id" column="pid"/>
+        <result property="pm_id" column="pm_id"/>
         <result property="username" column="username"/>
         <result property="icon" column="icon"/>
         <result property="tittle" column="tittle"/>
@@ -27,7 +28,7 @@
     </resultMap>
 
     <select id="getAlbumByUser" resultMap="pictureAlbum">
-        SELECT voa.id as pid,voa.username,voa.icon,voa.tittle,voa.picture,voa.create_time,voa.start_number,pt.id,pt.tag_name
+        SELECT voa.id as pid,voa.pm_id,voa.username,voa.icon,voa.tittle,voa.picture,voa.create_time,voa.start_number,pt.id,pt.tag_name
         FROM (SELECT * from view_of_album LIMIT #{pageNumber},6) AS voa,album_tag_relation AS atr,picture_tag AS pt
         WHERE voa.id=atr.album_id AND atr.tag_id=pt.id AND voa.username = #{username}
         order by create_time desc
