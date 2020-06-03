@@ -30,4 +30,9 @@ public interface TopicService {
      * 添加标签
      */
     int addTopicTag(int tag_id,int topic_id);
+
+    /**
+     * 删除话题（ID删除法）
+     */
+    int deleteTopic(int topic_id);
 }

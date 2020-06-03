@@ -44,4 +44,10 @@
         into topic_tag_relation
         values (default ,#{topic_id},#{tag_id})
     </insert>
+
+    <delete id="deleteTopic">
+        delete
+        from topic
+        where id = #{topic_id}
+    </delete>
 </mapper>

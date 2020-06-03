@@ -38,4 +38,10 @@ public class TopicServiceImpl implements TopicService {
     public int addTopicTag(int tag_id, int topic_id) {
         return topicMapper.addTopicTag(tag_id,topic_id);
     }
+
+    @Override
+    public int deleteTopic(int topic_id) {
+        return topicMapper.deleteTopic(topic_id);
+    }
+
 }

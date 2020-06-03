@@ -49,6 +49,6 @@
     <delete id="deleteAlbum">
         delete
         from picture_album
-        where pa_id=#{pa_id}
+        where id=#{pa_id}
     </delete>
 </mapper>

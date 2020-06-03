@@ -130,8 +130,17 @@ public class PictureAlbumController {
         return resultListModel;
     }
 
+    /**
+     * 用户个人图册删除接口
+     *
+     * @param pa_id 图册图片ID
+     * @return
+     */
     @GetMapping("/deleteAlbum/{pa_id}")
-    public ResultModel deleteAlbum(@RequestHeader String token,@PathVariable int pa_id) {
+    @ApiOperation("用户个人图册删除接口")
+    @ApiImplicitParam(name = "pa_id", value = "图册图片的ID", required = true)
+    @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
+    public ResultModel deleteAlbum(@PathVariable int pa_id) {
         if (pictureAlbumService.deleteAlbum(pa_id) <= 0) {
             resultModel.setValue(ResultModel.FAIL,400,"删除失败");
         } else {

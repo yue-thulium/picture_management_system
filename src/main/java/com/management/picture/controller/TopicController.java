@@ -124,4 +124,23 @@ public class TopicController {
         }
         return resultListModel;
     }
+
+    /**
+     * 用户个人图册删除接口
+     *
+     * @param topic_id 话题ID
+     * @return
+     */
+    @GetMapping("/deleteTopic/{topic_id}")
+    @ApiOperation("用户个人话题删除接口")
+    @ApiImplicitParam(name = "pa_id", value = "图册图片的ID", required = true)
+    @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
+    public ResultModel deleteTopic(@PathVariable int topic_id) {
+        if (topicService.deleteTopic(topic_id) <= 0) {
+            resultModel.setValue(ResultModel.FAIL,400,"删除失败");
+        } else {
+            resultModel.setValue(ResultModel.SUCCESS,200,"删除成功");
+        }
+        return resultModel;
+    }
 }
