@@ -97,6 +97,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public String getUserNickName(int pm_id) {
+        return userMapper.getUserNickName(pm_id);
+    }
+
+    @Override
+    public int changeUserNickName(int pm_id, String new_nickname) {
+        return userMapper.changeUserNickName(pm_id,new_nickname);
+    }
+
+    @Override
     public String getUserIcon(String username) {
         return userMapper.getUserIcon(username);
     }

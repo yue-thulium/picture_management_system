@@ -18,8 +18,10 @@ import java.util.List;
 public class PictureAlbum {
     @ApiModelProperty(value = "标签ID")
     private int id;
-    @ApiModelProperty(value = "发布者")
+    @ApiModelProperty(value = "发布者用户名")
     private String username;
+    @ApiModelProperty(value = "发布者昵称")
+    private String nick_name;
     @ApiModelProperty(value = "发布者头像")
     private String icon;
     @ApiModelProperty(value = "发布者ID")

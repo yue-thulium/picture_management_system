@@ -1,5 +1,6 @@
 package com.management.picture.controller.user;
 
+import com.auth0.jwt.JWT;
 import com.management.picture.model.result.ResultModel;
 import com.management.picture.model.result.ResultUserInfModel;
 import com.management.picture.model.User;
@@ -71,6 +72,39 @@ public class UserController {
     @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
     public String getIcon(@RequestHeader String token) {
         return FastdfsUtils.BASE_URL + userService.getUserIcon(JWTUtil.getUsername(token));
+    }
+
+    /**
+     * 获取用户昵称
+     *
+     * @param token 凭证
+     * @return
+     */
+    @GetMapping("/getNickName")
+    @ApiOperation("用户头像获取接口")
+    @ApiImplicitParam(name = "token", value = "用户凭证", required = true)
+    @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
+    public String getNickName(@RequestHeader String token) {
+        return userService.getUserNickName(Integer.valueOf(JWTUtil.getUserID(token)));
+    }
+
+    /**
+     * 获取用户昵称
+     *
+     * @param token 凭证
+     * @return
+     */
+    @GetMapping("/changeNickName/{new_nickname}")
+    @ApiOperation("用户头像修改接口")
+    @ApiImplicitParam(name = "token", value = "用户凭证", required = true)
+    @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
+    public ResultModel changeNickName(@RequestHeader String token,@PathVariable String new_nickname) {
+        if (userService.changeUserNickName(Integer.valueOf(JWTUtil.getUserID(token)),new_nickname) <= 0) {
+            resultModel.setValue(ResultModel.FAIL,400,"网络异常，修改失败");
+        } else {
+            resultModel.setValue(ResultModel.SUCCESS,200,"修改成功");
+        }
+        return resultModel;
     }
 
     /**

@@ -91,6 +91,16 @@ public interface UserService {
     User getUserInf(String username);
 
     /**
+     * 获取用户昵称
+     */
+    String getUserNickName(int pm_id);
+
+    /**
+     * 修改用户昵称
+     */
+    int changeUserNickName(int pm_id,String new_nickname);
+
+    /**
      * 获取用户头像
      */
     String getUserIcon(String username);

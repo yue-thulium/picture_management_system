@@ -63,7 +63,7 @@
     <insert id="addUser" parameterType="String">
         INSERT
         into pm
-        values (default,#{username},#{password},#{email},#{phone},default ,default ,default)
+        values (default,#{username},#{password},#{email},#{phone},default ,default ,default,#{username})
     </insert>
 
     <select id="verifyMail" resultType="com.management.picture.model.User">
@@ -86,6 +86,16 @@
             <result property="permission" column="permission"/>
         </association>
     </resultMap>
+
+    <select id="getUserNickName">
+        select pm.nick_name from pm where id = #{pm_id}
+    </select>
+
+    <update id="changeUserNickName">
+        update pm
+        set pm.nick_name = #{new_nickname}
+        where pm.id = #{pm_id}
+    </update>
 
     <select id="getUserIcon" parameterType="String" resultType="String">
         select icon from pm where username = #{username}
