@@ -104,6 +104,20 @@ public class PictureAlbumController {
     }
 
     /**
+     * 图册图片单个获取接口——ID获取
+     *
+     * @param pa_id 图册图片ID
+     * @return
+     */
+    @GetMapping("/getAlbumById/{pa_id}")
+    @ApiOperation("图册获取接口")
+    @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
+    public PictureAlbum getAlbumById(@PathVariable int pa_id) {
+        List<PictureAlbum> pictureAlbum = pictureAlbumService.getPageById(pa_id);
+        return pictureAlbum.get(0);
+    }
+
+    /**
      * 个人创作图册获取接口
      *
      * @param token 凭证

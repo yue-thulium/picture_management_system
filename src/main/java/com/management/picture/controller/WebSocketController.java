@@ -55,4 +55,12 @@ public class WebSocketController {
         }
         return resultModel;
     }
+
+    @GetMapping("/getOnlineNumber")
+    @ApiOperation("获取当前在线人数接口")
+    @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
+    public ResultModel getOnlinePersion() {
+        resultModel.setValue(ResultModel.SUCCESS,200,String.valueOf(WebSocket.getSessionPool().size()));
+        return resultModel;
+    }
 }

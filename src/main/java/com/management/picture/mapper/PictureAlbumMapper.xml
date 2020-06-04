@@ -36,6 +36,13 @@
         order by create_time desc
     </select>
 
+    <select id="getPageById" resultMap="pictureAlbum">
+        SELECT pa.id as pid,pm.username,pm.nick_name,pm.icon,pm.id AS pm_id,pa.tittle,pa.picture,
+            pa.create_time,pa.start_number,pa.comment_number,pt.id,pt.tag_name
+        FROM picture_album AS pa,picture_tag AS pt,pm AS pm,album_tag_relation AS atr
+        WHERE pa.pm_id=pm.id AND pa.id=atr.album_id AND pt.id=atr.tag_id AND pa.id=#{pa_id}
+    </select>
+
     <insert id="releaseAlbum" parameterType="com.management.picture.model.body.PictureAlbum" useGeneratedKeys="true" keyProperty="id">
         insert
         into picture_album

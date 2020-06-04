@@ -22,6 +22,11 @@ public interface PictureAlbumService {
     List<PictureAlbum> getAlbumByUser(String username,int pageNumber);
 
     /**
+     * 查询图册单个图片，ID获取
+     */
+    List<PictureAlbum> getPageById(int pa_id);
+
+    /**
      * 创建图册
      */
     int releaseAlbum(PictureAlbum pictureAlbum);

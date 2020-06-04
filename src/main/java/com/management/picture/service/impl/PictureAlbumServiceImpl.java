@@ -30,6 +30,11 @@ public class PictureAlbumServiceImpl implements PictureAlbumService {
     }
 
     @Override
+    public List<PictureAlbum> getPageById(int pa_id) {
+        return pictureAlbumMapper.getPageById(pa_id);
+    }
+
+    @Override
     public int releaseAlbum(PictureAlbum pictureAlbum) {
         return pictureAlbumMapper.releaseAlbum(pictureAlbum);
     }
