@@ -24,6 +24,7 @@ import java.util.List;
  * @author Yue Wu
  */
 @RestController
+@Api(tags = "话题相关接口")
 public class TopicController {
 
     @Autowired
