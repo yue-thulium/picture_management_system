@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -228,6 +229,16 @@ public class MessageController {
         } else {
             resultModel.setValue(ResultModel.SUCCESS,200,"完成");
         }
+        return resultModel;
+    }
+
+    @GetMapping("/getCountMessNeedRead")
+    @ApiOperation("未读消息（包括群发及私聊）接口")
+    @ApiImplicitParam(name = "token", value = "凭证", required = true)
+    @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
+    public ResultModel getCountMessNeedRead(@RequestHeader String token) {
+        resultModel.setValue(ResultModel.SUCCESS,200,
+                String.valueOf(messageService.getCountMessNeedRead(Integer.valueOf(JWTUtil.getUserID(token)))));
         return resultModel;
     }
 }

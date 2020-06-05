@@ -95,4 +95,12 @@
     <select id="getUsername" resultType="String">
         select username from pm where id=#{pm_id}
     </select>
+
+    <select id="getCountMessNeedRead" resultType="int">
+        SELECT COUNT(*)
+        FROM message
+        WHERE id NOT IN (SELECT m_mess_id FROM message_already_read WHERE read_pm_id=#{id})
+        AND message_to=0
+        OR message_to=#{id}
+    </select>
 </mapper>

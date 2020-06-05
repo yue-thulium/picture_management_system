@@ -73,4 +73,9 @@ public class MessageServiceImpl implements MessageService {
     public String getUsername(int pm_id) {
         return messageMapper.getUsername(pm_id);
     }
+
+    @Override
+    public int getCountMessNeedRead(int id) {
+        return messageMapper.getCountMessNeedRead(id);
+    }
 }

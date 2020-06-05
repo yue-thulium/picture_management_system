@@ -65,4 +65,9 @@ public interface MessageService {
      * 获取被发送用户的用户名
      */
     String getUsername(int pm_id);
+
+    /**
+     * 获取用户未读信息条数
+     */
+    int getCountMessNeedRead(int id);
 }
