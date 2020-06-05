@@ -1,13 +1,18 @@
 package com.management.picture.controller;
 
+import com.management.picture.model.body.PictureAlbum;
+import com.management.picture.model.body.Topic;
 import com.management.picture.model.result.ResultModel;
 import com.management.picture.service.CollectionService;
 import com.management.picture.util.JWTUtil;
 import io.swagger.annotations.*;
+import io.swagger.models.auth.In;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created on 2020/6/2.
@@ -187,5 +192,21 @@ public class CollectionController {
             resultModel.setValue(ResultModel.SUCCESS,200,"当前为未收藏");
         }
         return resultModel;
+    }
+
+    @GetMapping("/getCollectAlbum")
+    @ApiOperation("获取已经收藏的图册图片")
+    @ApiImplicitParam(name = "token", value = "凭证", required = true)
+    @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
+    public List<PictureAlbum> getCollectAlbum(@RequestHeader String token) {
+        return collectionService.getCollectionAlbum(Integer.valueOf(JWTUtil.getUserID(token)));
+    }
+
+    @GetMapping("/getCollectTopic")
+    @ApiOperation("获取已经收藏的话题")
+    @ApiImplicitParam(name = "token", value = "凭证", required = true)
+    @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
+    public List<Topic> getCollectTopic(@RequestHeader String token) {
+        return collectionService.getCollectionTopic(Integer.valueOf(JWTUtil.getUserID(token)));
     }
 }

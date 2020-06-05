@@ -38,4 +38,55 @@
         from topic_collection
         where pm_id = #{pm_id} and topic_id = #{topic_id}
     </select>
+
+    <resultMap id="pictureAlbum" type="com.management.picture.model.body.PictureAlbum">
+        <id property="id" column="pid"/>
+        <result property="pm_id" column="pm_id"/>
+        <result property="username" column="username"/>
+        <result property="nick_name" column="nick_name"/>
+        <result property="icon" column="icon"/>
+        <result property="tittle" column="tittle"/>
+        <result property="picture" column="picture"/>
+        <result property="create_time" column="create_time"/>
+        <result property="start_number" column="start_number"/>
+        <result property="comment_number" column="comment_number"/>
+        <collection property="tagList" javaType="List" ofType="com.management.picture.model.Tag">
+            <id property="id" column="id"/>
+            <result property="tag_name" column="tag_name"/>
+        </collection>
+    </resultMap>
+
+    <select id="getCollectionAlbum" resultMap="pictureAlbum">
+        SELECT pa.id as pid,pm.username,pm.nick_name,pm.icon,pa.pm_id,pa.tittle,pa.picture,pa.create_time,
+            pa.start_number,pa.comment_number,pt.id,pt.tag_name
+        FROM (SELECT * FROM picture_album WHERE id IN (SELECT id FROM picture_album_collection WHERE pm_id=#{pm_id})) AS pa,
+            pm AS pm,picture_tag AS pt,album_tag_relation AS atr
+        WHERE pa.pm_id=pm.id AND pt.id=atr.tag_id AND pa.id=atr.album_id
+    </select>
+
+    <resultMap id="Topic" type="com.management.picture.model.body.Topic">
+        <id property="id" column="id"/>
+        <result property="pm_id" column="pm_id"/>
+        <result property="username" column="username"/>
+        <result property="nick_name" column="nick_name"/>
+        <result property="icon" column="icon"/>
+        <result property="tittle" column="tittle"/>
+        <result property="picture" column="picture"/>
+        <result property="text" column="text"/>
+        <result property="create_time" column="create_time"/>
+        <result property="start_number" column="start_number"/>
+        <result property="comment_number" column="comment_number"/>
+        <collection property="tagList" javaType="List" ofType="com.management.picture.model.Tag">
+            <id property="id" column="tt_id"/>
+            <result property="tag_name" column="tag_name"/>
+        </collection>
+    </resultMap>
+
+    <select id="getCollectionTopic" resultMap="Topic">
+        SELECT t.id,pm.username,pm.nick_name,pm.icon,t.pm_id,t.tittle,t.picture,t.text,t.create_time,t.start_number,
+            t.comment_number,tt.id,tt.tag_name
+        FROM (SELECT * FROM topic WHERE id IN(SELECT id FROM topic_collection WHERE pm_id=#{pm_id})) AS t,
+            pm AS pm,topic_tag AS tt,topic_tag_relation AS ttr
+        WHERE t.pm_id=pm.id AND tt.id=ttr.tt_id AND t.id=ttr.t_id
+    </select>
 </mapper>

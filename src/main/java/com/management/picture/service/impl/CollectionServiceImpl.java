@@ -1,9 +1,13 @@
 package com.management.picture.service.impl;
 
 import com.management.picture.mapper.CollectionMapper;
+import com.management.picture.model.body.PictureAlbum;
+import com.management.picture.model.body.Topic;
 import com.management.picture.service.CollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created on 2020/6/2.
@@ -44,5 +48,15 @@ public class CollectionServiceImpl implements CollectionService {
     @Override
     public int ifCollectionTopic(int pm_id, int topic_id) {
         return collectionMapper.ifCollectionTopic(pm_id, topic_id);
+    }
+
+    @Override
+    public List<PictureAlbum> getCollectionAlbum(int pm_id) {
+        return collectionMapper.getCollectionAlbum(pm_id);
+    }
+
+    @Override
+    public List<Topic> getCollectionTopic(int pm_id) {
+        return collectionMapper.getCollectionTopic(pm_id);
     }
 }
