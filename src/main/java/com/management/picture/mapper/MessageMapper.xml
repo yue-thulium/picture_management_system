@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.management.picture.mapper.MessageMapper">
+
+    <resultMap id="mess" type="com.management.picture.model.body.MessageModel">
+        <id property="id" column="id"/>
+        <result property="pm_id" column="pm_id"/>
+        <result property="nick_name" column="nick_name"/>
+        <result property="icon" column="icon"/>
+        <result property="message_content" column="message_content"/>
+        <result property="message_time" column="message_time"/>
+        <result property="message_type" column="message_type"/>
+    </resultMap>
+
+    <select id="getNoReadAllMess" resultMap="mess">
+        SELECT DISTINCT m_m.id,m_m.pm_id,pm.nick_name,pm.icon,m_m.message_content,m_m.message_time,
+            (case m_m.message_to when 0 then '群发' ELSE '私聊' END)message_type
+        FROM view_of_message_mess AS m_m,message_already_read AS mar,pm AS pm
+        WHERE m_m.id NOT IN (SELECT mar.m_mess_id FROM message_already_read AS mar WHERE mar.read_pm_id=#{pm_id})
+            AND m_m.pm_id=pm.id
+            AND m_m.id NOT IN (SELECT message_id FROM message_recycle WHERE hidden_pm_id=#{pm_id})
+    </select>
+
+    <select id="getReadAllMess" resultMap="mess">
+        SELECT DISTINCT m_m.id,m_m.pm_id,pm.nick_name,pm.icon,m_m.message_content,m_m.message_time,
+            (case m_m.message_to when 0 then '群发' ELSE '私聊' END)message_type
+        FROM view_of_message_mess AS m_m,message_already_read AS mar,pm AS pm
+        WHERE mar.read_pm_id=#{pm_id}
+            AND mar.m_mess_id=m_m.id
+            AND pm.id=m_m.pm_id
+            AND m_m.id NOT IN (SELECT message_id FROM message_recycle WHERE hidden_pm_id=#{pm_id})
+    </select>
+
+    <select id="getNoReadPriMess" resultMap="mess">
+        SELECT DISTINCT m_m.id,m_m.pm_id,pm.nick_name,pm.icon,m_m.message_content,m_m.message_time,
+            (case m_m.message_to when 0 then '群发' ELSE '私聊' END)message_type
+        FROM view_of_message_private AS m_m,message_already_read AS mar,pm AS pm
+        WHERE m_m.message_to=#{pm_id}
+            AND m_m.pm_id=pm.id
+            AND m_m.id NOT IN (SELECT mar.m_mess_id FROM message_already_read AS mar WHERE mar.read_pm_id=#{pm_id})
+            AND m_m.id NOT IN (SELECT message_id FROM message_recycle WHERE hidden_pm_id=#{pm_id})
+    </select>
+
+    <select id="getReadPriMess" resultMap="mess">
+        SELECT DISTINCT m_m.id,m_m.pm_id,pm.nick_name,pm.icon,m_m.message_content,m_m.message_time,
+            (case m_m.message_to when 0 then '群发' ELSE '私聊' END)message_type
+        FROM view_of_message_private AS m_m,pm AS pm
+        WHERE m_m.message_to=#{pm_id}
+            AND m_m.pm_id=pm.id
+            AND m_m.id IN (SELECT mar.m_mess_id FROM message_already_read AS mar WHERE mar.read_pm_id=#{pm_id})
+            AND m_m.id NOT IN (SELECT message_id FROM message_recycle WHERE hidden_pm_id=#{pm_id})
+    </select>
+
+    <select id="getMyMess" resultMap="mess">
+        SELECT DISTINCT m_m.id,m_m.pm_id,pm.nick_name,pm.icon,m_m.message_content,m_m.message_time,
+            (case m_m.message_to when 0 then '群发' ELSE '私聊' END)message_type
+        FROM message AS m_m,pm AS pm
+        WHERE m_m.pm_id=#{pm_id} AND m_m.pm_id=pm.id
+    </select>
+
+    <select id="getHiddenMess" resultMap="mess">
+        SELECT DISTINCT m_m.id,m_m.pm_id,pm.nick_name,pm.icon,m_m.message_content,m_m.message_time,
+            (case m_m.message_to when 0 then '群发' ELSE '私聊' END)message_type
+        FROM message AS m_m,pm AS pm
+        WHERE m_m.pm_id=pm.id
+            AND m_m.id IN (SELECT message_id FROM message_recycle WHERE hidden_pm_id=#{pm_id})
+    </select>
+
+    <insert id="sendMess">
+        insert
+        into message
+        values (default ,#{pm_id},#{message_content},default ,#{message_to})
+    </insert>
+
+    <insert id="hiddenMess">
+        insert
+        into message_recycle
+        values (default ,#{message_id},#{pm_id})
+    </insert>
+
+    <insert id="makeMessRead">
+        insert
+        into message_already_read
+        values (default ,#{message_id},#{pm_id})
+    </insert>
+
+    <delete id="deleteSelfMess">
+        delete
+        from message
+        where pm_id=#{pm_id} and id=#{message_id}
+    </delete>
+
+    <select id="getUsername" resultType="String">
+        select username from pm where id=#{pm_id}
+    </select>
+</mapper>
