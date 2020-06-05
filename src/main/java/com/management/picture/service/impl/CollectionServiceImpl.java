@@ -51,12 +51,12 @@ public class CollectionServiceImpl implements CollectionService {
     }
 
     @Override
-    public List<PictureAlbum> getCollectionAlbum(int pm_id) {
-        return collectionMapper.getCollectionAlbum(pm_id);
+    public List<PictureAlbum> getCollectionAlbum(int pm_id,int pageNumber) {
+        return collectionMapper.getCollectionAlbum(pm_id,pageNumber);
     }
 
     @Override
-    public List<Topic> getCollectionTopic(int pm_id) {
-        return collectionMapper.getCollectionTopic(pm_id);
+    public List<Topic> getCollectionTopic(int pm_id,int pageNumber) {
+        return collectionMapper.getCollectionTopic(pm_id,pageNumber);
     }
 }

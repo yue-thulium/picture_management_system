@@ -45,10 +45,10 @@ public interface CollectionService {
     /**
      * 图册图片收藏获取
      */
-    List<PictureAlbum> getCollectionAlbum(int pm_id);
+    List<PictureAlbum> getCollectionAlbum(int pm_id,int pageNumber);
 
     /**
      * 话题收藏获取
      */
-    List<Topic> getCollectionTopic(int pm_id);
+    List<Topic> getCollectionTopic(int pm_id,int pageNumber);
 }

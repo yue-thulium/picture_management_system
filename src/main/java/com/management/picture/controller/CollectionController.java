@@ -200,12 +200,15 @@ public class CollectionController {
      * @param token 凭证
      * @return 图片集合
      */
-    @GetMapping("/getCollectAlbum")
+    @GetMapping("/getCollectAlbum/{pageNumber}")
     @ApiOperation("获取已经收藏的图册图片")
-    @ApiImplicitParam(name = "token", value = "凭证", required = true)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "token", value = "凭证", required = true),
+            @ApiImplicitParam(name = "pageNumber", value = "页数", required = true)
+    })
     @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
-    public List<PictureAlbum> getCollectAlbum(@RequestHeader String token) {
-        return collectionService.getCollectionAlbum(Integer.valueOf(JWTUtil.getUserID(token)));
+    public List<PictureAlbum> getCollectAlbum(@RequestHeader String token,@PathVariable int pageNumber) {
+        return collectionService.getCollectionAlbum(Integer.valueOf(JWTUtil.getUserID(token)),pageNumber - 6);
     }
 
     /**
@@ -214,11 +217,14 @@ public class CollectionController {
      * @param token 凭证
      * @return 话题集合
      */
-    @GetMapping("/getCollectTopic")
+    @GetMapping("/getCollectTopic/{pageNumber}")
     @ApiOperation("获取已经收藏的话题")
-    @ApiImplicitParam(name = "token", value = "凭证", required = true)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "token", value = "凭证", required = true),
+            @ApiImplicitParam(name = "pageNumber", value = "页数", required = true)
+    })
     @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
-    public List<Topic> getCollectTopic(@RequestHeader String token) {
-        return collectionService.getCollectionTopic(Integer.valueOf(JWTUtil.getUserID(token)));
+    public List<Topic> getCollectTopic(@RequestHeader String token,@PathVariable int pageNumber) {
+        return collectionService.getCollectionTopic(Integer.valueOf(JWTUtil.getUserID(token)),pageNumber - 6);
     }
 }
