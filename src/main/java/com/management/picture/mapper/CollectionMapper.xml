@@ -59,7 +59,7 @@
     <select id="getCollectionAlbum" resultMap="pictureAlbum">
         SELECT pa.id as pid,pm.username,pm.nick_name,pm.icon,pa.pm_id,pa.tittle,pa.picture,pa.create_time,
             pa.start_number,pa.comment_number,pt.id,pt.tag_name
-        FROM (SELECT * FROM picture_album WHERE id IN (SELECT id FROM picture_album_collection WHERE pm_id=#{pm_id}) order by create_time limit #{pageNumber},6) AS pa,
+        FROM (SELECT * FROM picture_album WHERE id IN (SELECT pa_id FROM picture_album_collection WHERE pm_id=#{pm_id}) order by create_time limit #{pageNumber},6) AS pa,
             pm AS pm,picture_tag AS pt,album_tag_relation AS atr
         WHERE pa.pm_id=pm.id AND pt.id=atr.tag_id AND pa.id=atr.album_id
     </select>
@@ -85,7 +85,7 @@
     <select id="getCollectionTopic" resultMap="Topic">
         SELECT t.id,pm.username,pm.nick_name,pm.icon,t.pm_id,t.tittle,t.picture,t.text,t.create_time,t.start_number,
             t.comment_number,tt.id,tt.tag_name
-        FROM (SELECT * FROM topic WHERE id IN(SELECT id FROM topic_collection WHERE pm_id=#{pm_id}) order by create_time limit #{pageNumber},6) AS t,
+        FROM (SELECT * FROM topic WHERE id IN(SELECT topic_id FROM topic_collection WHERE pm_id=#{pm_id}) order by create_time limit #{pageNumber},6) AS t,
             pm AS pm,topic_tag AS tt,topic_tag_relation AS ttr
         WHERE t.pm_id=pm.id AND tt.id=ttr.tt_id AND t.id=ttr.t_id
     </select>
