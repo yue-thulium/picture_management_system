@@ -194,6 +194,12 @@ public class CollectionController {
         return resultModel;
     }
 
+    /**
+     * 获取已经收藏的图册图片
+     *
+     * @param token 凭证
+     * @return 图片集合
+     */
     @GetMapping("/getCollectAlbum")
     @ApiOperation("获取已经收藏的图册图片")
     @ApiImplicitParam(name = "token", value = "凭证", required = true)
@@ -202,6 +208,12 @@ public class CollectionController {
         return collectionService.getCollectionAlbum(Integer.valueOf(JWTUtil.getUserID(token)));
     }
 
+    /**
+     * 获取已经收藏的话题
+     *
+     * @param token 凭证
+     * @return 话题集合
+     */
     @GetMapping("/getCollectTopic")
     @ApiOperation("获取已经收藏的话题")
     @ApiImplicitParam(name = "token", value = "凭证", required = true)
