@@ -74,4 +74,8 @@ public class WebSocket {
     public static Map<String, Session> getSessionPool() {
         return sessionPool;
     }
+
+    public static CopyOnWriteArraySet<WebSocket> getWebSockets() {
+        return webSockets;
+    }
 }
