@@ -16,7 +16,7 @@ public interface CommentMapper {
     /**
      * 获取所有当前图册图片评论
      */
-    List<CommentModel> getAllAlbumComment(int pa_id);
+    List<CommentModel> getAllAlbumComment(int pa_id,int pageNumber);
 
     /**
      * 添加一条图册图片的评论
@@ -26,7 +26,7 @@ public interface CommentMapper {
     /**
      * 获取所有当前话题评论
      */
-    List<CommentModel> getAllTopicComment(int topic_id);
+    List<CommentModel> getAllTopicComment(int topic_id,int pageNumber);
 
     /**
      * 添加一条话题的评论

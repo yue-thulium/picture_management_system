@@ -38,12 +38,15 @@ public class CommentController {
      * @param pa_id 当前图册照片ID
      * @return
      */
-    @GetMapping("/getAllAlbumComment/{pa_id}")
+    @GetMapping("/getAllAlbumComment/{pa_id}/{pageNumber}")
     @ApiOperation("图册评论获取接口")
-    @ApiImplicitParam(name = "pa_id", value = "当前图册照片ID", required = true)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pa_id", value = "当前图册照片ID", required = true),
+            @ApiImplicitParam(name = "pageNumber", value = "页数", required = true)
+    })
     @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
-    public List<CommentModel> getAllAlbumComment(@PathVariable int pa_id) {
-        return commentService.getAllAlbumComment(pa_id);
+    public List<CommentModel> getAllAlbumComment(@PathVariable int pa_id,@PathVariable int pageNumber) {
+        return commentService.getAllAlbumComment(pa_id,pageNumber - 6);
     }
 
     /**
@@ -78,12 +81,15 @@ public class CommentController {
      * @param topic_id 当前话题ID
      * @return
      */
-    @GetMapping("/getAllTopicComment/{topic_id}")
+    @GetMapping("/getAllTopicComment/{topic_id}/{pageNumber}")
     @ApiOperation("话题评论获取接口")
-    @ApiImplicitParam(name = "topic_id", value = "当前话题ID", required = true)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pa_id", value = "当前图册照片ID", required = true),
+            @ApiImplicitParam(name = "pageNumber", value = "页数", required = true)
+    })
     @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
-    public List<CommentModel> getAllTopicComment(@PathVariable int topic_id) {
-        return commentService.getAllTopicComment(topic_id);
+    public List<CommentModel> getAllTopicComment(@PathVariable int topic_id,@PathVariable int pageNumber) {
+        return commentService.getAllTopicComment(topic_id,pageNumber - 6);
     }
 
     /**

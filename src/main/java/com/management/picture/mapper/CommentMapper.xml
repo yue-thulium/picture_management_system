@@ -6,6 +6,7 @@
 
     <resultMap id="AlbumCommentModel" type="com.management.picture.model.body.CommentModel">
         <result property="username" column="username"/>
+        <result property="nick_name" column="nick_name"/>
         <result property="icon" column="icon"/>
         <result property="target_id" column="pa_id"/>
         <result property="content" column="content"/>
@@ -13,7 +14,7 @@
     </resultMap>
 
     <select id="getAllAlbumComment" resultMap="AlbumCommentModel">
-        select * from view_of_album_comment where pa_id=#{pa_id} order by comment_time desc
+        select * from view_of_album_comment where pa_id=#{pa_id} order by comment_time desc limit #{pageNumber},6
     </select>
 
     <insert id="addAlbumComment">
@@ -24,6 +25,7 @@
 
     <resultMap id="TopicCommentModel" type="com.management.picture.model.body.CommentModel">
         <result property="username" column="username"/>
+        <result property="nick_name" column="nick_name"/>
         <result property="icon" column="icon"/>
         <result property="target_id" column="topic_id"/>
         <result property="content" column="content"/>
@@ -31,7 +33,7 @@
     </resultMap>
 
     <select id="getAllTopicComment" resultMap="TopicCommentModel">
-        select * from view_of_topic_comment where topic_id=#{topic_id} order by comment_time desc
+        select * from view_of_topic_comment where topic_id=#{topic_id} order by comment_time desc limit #{pageNumber},6
     </select>
 
     <insert id="addTopicComment">

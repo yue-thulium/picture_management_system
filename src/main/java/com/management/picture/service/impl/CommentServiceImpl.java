@@ -20,8 +20,8 @@ public class CommentServiceImpl implements CommentService {
     private CommentMapper commentMapper;
 
     @Override
-    public List<CommentModel> getAllAlbumComment(int pa_id) {
-        return commentMapper.getAllAlbumComment(pa_id);
+    public List<CommentModel> getAllAlbumComment(int pa_id,int pageNumber) {
+        return commentMapper.getAllAlbumComment(pa_id,pageNumber);
     }
 
     @Override
@@ -30,8 +30,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentModel> getAllTopicComment(int topic_id) {
-        return commentMapper.getAllTopicComment(topic_id);
+    public List<CommentModel> getAllTopicComment(int topic_id,int pageNumber) {
+        return commentMapper.getAllTopicComment(topic_id,pageNumber);
     }
 
     @Override

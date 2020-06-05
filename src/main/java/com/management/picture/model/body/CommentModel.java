@@ -16,6 +16,8 @@ import java.util.Date;
 public class CommentModel {
     @ApiModelProperty(value = "发布者")
     private String username;
+    @ApiModelProperty(value = "发布者")
+    private String nick_name;
     @ApiModelProperty(value = "发布者头像")
     private String icon;
     @ApiModelProperty(value = "目标ID（图册图片或话题）")
