@@ -148,7 +148,7 @@ public class MessageController {
         } else {
             String to_username = messageService.getUsername(message_to);
             if (to_username != null) {
-                if (WebSocket.getSessionPool().containsKey(to_username)) {
+                if (WebSocket.getSessionPool().get(to_username).isOpen()) {
                     webSocket.sendOneMessage(to_username,message);
                     messageService.sendMess(Integer.valueOf(JWTUtil.getUserID(token)),message,message_to);
                     resultModel.setValue(ResultModel.SUCCESS,200,"发送成功");

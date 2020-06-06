@@ -63,4 +63,12 @@ public class WebSocketController {
         resultModel.setValue(ResultModel.SUCCESS,200,String.valueOf(WebSocket.getWebSockets().size()));
         return resultModel;
     }
+
+    @GetMapping("/getOnlineSession")
+    @ApiOperation("获取当前在Session数接口")
+    @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
+    public ResultModel getOnlineSession() {
+        resultModel.setValue(ResultModel.SUCCESS,200,String.valueOf(WebSocket.getSessionPool().size()));
+        return resultModel;
+    }
 }

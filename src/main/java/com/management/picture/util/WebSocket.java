@@ -31,6 +31,9 @@ public class WebSocket {
     public void onOpen(Session session, @PathParam(value="userName")String userName) {
         this.session = session;
         webSockets.add(this);
+        if (sessionPool.get(userName) != null) {
+            sessionPool.remove(userName);
+        }
         sessionPool.put(userName, session);
         System.out.println(userName+"【websocket消息】有新的连接，总数为:"+webSockets.size());
     }
