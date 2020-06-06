@@ -233,7 +233,7 @@ public class MessageController {
     }
 
     @GetMapping("/getCountMessNeedRead")
-    @ApiOperation("未读消息（包括群发及私聊）接口")
+    @ApiOperation("未读消息（包括群发及私聊）计数接口")
     @ApiImplicitParam(name = "token", value = "凭证", required = true)
     @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
     public ResultModel getCountMessNeedRead(@RequestHeader String token) {

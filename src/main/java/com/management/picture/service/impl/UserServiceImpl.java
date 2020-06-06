@@ -2,6 +2,7 @@ package com.management.picture.service.impl;
 
 import com.management.picture.mapper.UserMapper;
 import com.management.picture.model.User;
+import com.management.picture.model.UserCenter;
 import com.management.picture.model.usual.Fan;
 import com.management.picture.model.usual.Follow;
 import com.management.picture.service.UserService;
@@ -109,6 +110,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public String getUserIcon(String username) {
         return userMapper.getUserIcon(username);
+    }
+
+    @Override
+    public int changeUserIcon(String username, String picture) {
+        return userMapper.changeUserIcon(username,picture);
+    }
+
+    @Override
+    public UserCenter getUserCenterInf(String username) {
+        return userMapper.getUserCenterInf(username);
+    }
+
+    @Override
+    public int changeUserCenterInf(UserCenter userCenter) {
+        return userMapper.changeUserCenterInf(userCenter);
     }
 
     @Override

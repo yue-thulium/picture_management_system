@@ -15,9 +15,9 @@
         WHERE id = (select pm_role from pm where username = #{username})
     </select>
 
-    <update id="updatePassword" parameterType="String">
+    <update id="updatePassword">
         UPDATE pm
-        SET password = #{password}
+        SET password = #{newPassword}
         WHERE username = #{username}
     </update>
 
@@ -100,6 +100,24 @@
     <select id="getUserIcon" parameterType="String" resultType="String">
         select icon from pm where username = #{username}
     </select>
+
+    <update id="changeUserIcon">
+        update pm
+        set icon = #{picture}
+        where username = #{username}
+    </update>
+
+    <select id="getUserCenterInf" resultType="com.management.picture.model.UserCenter">
+        select username,nick_name,email,phone
+        from pm
+        where username = #{username}
+    </select>
+
+    <update id="changeUserCenterInf" parameterType="com.management.picture.model.UserCenter">
+        update pm
+        set nick_name=#{nick_name},email=#{email},phone=#{phone}
+        where username=#{username}
+    </update>
 
     <select id="getUserFans" resultType="com.management.picture.model.usual.Fan">
         select icon,username

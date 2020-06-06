@@ -1,6 +1,7 @@
 package com.management.picture.service;
 
 import com.management.picture.model.User;
+import com.management.picture.model.UserCenter;
 import com.management.picture.model.usual.Fan;
 import com.management.picture.model.usual.Follow;
 import org.apache.ibatis.annotations.Param;
@@ -104,6 +105,21 @@ public interface UserService {
      * 获取用户头像
      */
     String getUserIcon(String username);
+
+    /**
+     * 获取用户头像
+     */
+    int changeUserIcon(String username,String picture);
+
+    /**
+     * 获取用户中心当中的用户信息
+     */
+    UserCenter getUserCenterInf(String username);
+
+    /**
+     * 修改用户中心当中的用户信息
+     */
+    int changeUserCenterInf(UserCenter userCenter);
 
     /**
      * 获取用户粉丝
