@@ -139,7 +139,7 @@ public class UserController {
      * @return
      * @throws IOException
      */
-    @GetMapping("/changeIcon")
+    @PostMapping("/changeIcon")
     @ApiOperation("用户头像修改接口")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "token", value = "用户凭证", required = true),
