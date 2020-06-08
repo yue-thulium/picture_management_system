@@ -1,6 +1,7 @@
 package com.management.picture.service;
 
 import com.management.picture.model.body.MessageModel;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -70,4 +71,19 @@ public interface MessageService {
      * 获取用户未读信息条数
      */
     int getCountMessNeedRead(int id);
+
+    /**
+     * 批量已读
+     */
+    int batchReadMessage(@Param("messages") List<MessageModel> messages, @Param("id") String id);
+
+    /**
+     * 批量非发布用户删除
+     */
+    int batchHiddenMessage(@Param("messages") List<MessageModel> messages,@Param("id") String id);
+
+    /**
+     * 批量发布用户删除自己发布的消息
+     */
+    int batchDeleteMessage(@Param("messages") List<MessageModel> messages,@Param("id") String id);
 }

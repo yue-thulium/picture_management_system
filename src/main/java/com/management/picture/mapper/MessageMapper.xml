@@ -101,4 +101,31 @@
         FROM (SELECT * FROM message WHERE message_to=0 OR message_to=#{id}) AS m
         WHERE m.id NOT IN (SELECT m_mess_id FROM message_already_read WHERE read_pm_id=#{id})
     </select>
+
+    <insert id="batchReadMessage">
+        insert
+        into message_already_read
+        values
+            <foreach collection="messages" item="message" separator="," index="">
+                (default ,#{message.id,jdbcType=INTEGER} ,#{id})
+            </foreach>
+    </insert>
+
+    <insert id="batchHiddenMessage">
+        insert
+        into message_recycle
+        values
+            <foreach collection="messages" item="message" separator="," index="">
+                ( default ,#{message.id,jdbcType=INTEGER} ,#{id})
+            </foreach>
+    </insert>
+
+    <delete id="batchDeleteMessage">
+        delete
+        from message
+        where pm_id=#{id} and id in
+            <foreach collection="messages" item="message" separator="," open="(" close=")" index="">
+                #{message.id,jdbcType=INTEGER}
+            </foreach>
+    </delete>
 </mapper>

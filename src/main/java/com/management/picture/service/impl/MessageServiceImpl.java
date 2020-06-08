@@ -78,4 +78,19 @@ public class MessageServiceImpl implements MessageService {
     public int getCountMessNeedRead(int id) {
         return messageMapper.getCountMessNeedRead(id);
     }
+
+    @Override
+    public int batchReadMessage(List<MessageModel> messages, String id) {
+        return messageMapper.batchReadMessage(messages,id);
+    }
+
+    @Override
+    public int batchHiddenMessage(List<MessageModel> messages, String id) {
+        return messageMapper.batchHiddenMessage(messages,id);
+    }
+
+    @Override
+    public int batchDeleteMessage(List<MessageModel> messages, String id) {
+        return messageMapper.batchDeleteMessage(messages,id);
+    }
 }
