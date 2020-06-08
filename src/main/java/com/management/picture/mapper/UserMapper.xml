@@ -150,4 +150,10 @@
     <select id="verifyPhone" resultType="com.management.picture.model.User">
         select * from pm where phone = #{phone}
     </select>
+
+    <select id="ifFollows" resultType="int">
+        select count(*)
+        from pm_relation
+        where from_user_id=#{id} and to_user_id=(select id from pm where username = #{username}) and rel_type = 2
+    </select>
 </mapper>

@@ -146,4 +146,9 @@ public class UserServiceImpl implements UserService {
     public int dropUserFollows(String id, String username) {
         return userMapper.dropUserFollows(id,username);
     }
+
+    @Override
+    public int ifFollows(String id, String username) {
+        return userMapper.ifFollows(id,username);
+    }
 }

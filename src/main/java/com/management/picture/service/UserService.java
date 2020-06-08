@@ -140,4 +140,9 @@ public interface UserService {
      * 取关某人
      */
     int dropUserFollows(String id,String username);
+
+    /**
+     * 当前用户是否被关注
+     */
+    int ifFollows(String id,String username);
 }

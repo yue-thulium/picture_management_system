@@ -272,4 +272,32 @@ public class UserController {
         return resultModel;
     }
 
+    /**
+     * 确认当前用户是否关注了某一个用户操作
+     *
+     * code说明：
+     *      20010 => 为未关注状态，用户可以进行关注操作
+     *      20011 => 为已关注状态，用户不能进行关注操作
+     *
+     * @param token 凭证
+     * @param username 需要检测的用户的用户名
+     * @return
+     */
+    @GetMapping("/ifFollows/{username}")
+    @ApiOperation("确认当前用户是否关注了某一个用户接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "token", value = "当前用户凭证", required = true),
+            @ApiImplicitParam(name = "username", value = "需要检测的用户的用户名", required = true)
+    })
+    @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
+    public ResultModel ifFollows(@RequestHeader String token,@PathVariable String username) {
+
+        if (userService.ifFollows(JWTUtil.getUserID(token),username) <= 0) {
+            resultModel.setValue(ResultModel.SUCCESS,20010,"当前未关注");
+        } else {
+            resultModel.setValue(ResultModel.SUCCESS,20011,"当前已关注");
+        }
+
+        return resultModel;
+    }
 }
