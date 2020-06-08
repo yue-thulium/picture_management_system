@@ -30,8 +30,8 @@
 
     <select id="getAllTopicByUser" resultMap="Topic">
         SELECT vot.id,vot.pm_id,vot.username,vot.nick_name,vot.icon,vot.tittle,vot.picture,vot.text,vot.create_time,vot.start_number,vot.comment_number,tt.id AS tt_id,tt.tag_name
-        FROM (SELECT * FROM view_of_topic ORDER BY create_time DESC LIMIT #{pageNumber},6) AS vot,topic_tag AS tt,topic_tag_relation AS ttr
-        WHERE vot.id=ttr.t_id AND tt.id=ttr.tt_id AND vot.username=#{username}
+        FROM (SELECT * FROM view_of_topic where username=#{username} ORDER BY create_time DESC LIMIT #{pageNumber},6) AS vot,topic_tag AS tt,topic_tag_relation AS ttr
+        WHERE vot.id=ttr.t_id AND tt.id=ttr.tt_id
         ORDER BY create_time DESC
     </select>
 
