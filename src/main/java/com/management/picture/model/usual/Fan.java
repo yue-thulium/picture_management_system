@@ -16,4 +16,6 @@ public class Fan {
     private String icon;
     @ApiModelProperty(value = "粉丝用户名",example="username")
     private String username;
+    @ApiModelProperty(value = "昵称",example="往左8°是魔法的角度 ℡")
+    private String nick_name;
 }

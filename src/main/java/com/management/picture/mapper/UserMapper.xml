@@ -120,15 +120,15 @@
     </update>
 
     <select id="getUserFans" resultType="com.management.picture.model.usual.Fan">
-        select icon,username
+        select icon,username,nick_name
         from pm
-        where id = (SELECT from_user_id FROM pm_relation WHERE rel_type=2 AND to_user_id=#{id})
+        where id in (SELECT from_user_id FROM pm_relation WHERE rel_type=2 AND to_user_id=#{id})
     </select>
 
     <select id="getUserFollows" resultType="com.management.picture.model.usual.Follow">
-        select icon,username
+        select icon,username,nick_name
         from pm
-        where id = (SELECT to_user_id FROM pm_relation WHERE rel_type=2 AND from_user_id=#{id})
+        where id in (SELECT to_user_id FROM pm_relation WHERE rel_type=2 AND from_user_id=#{id})
     </select>
 
     <insert id="setUserFollows">
