@@ -1,6 +1,7 @@
 package com.management.picture.service.impl;
 
 import com.management.picture.mapper.TopicMapper;
+import com.management.picture.model.Tag;
 import com.management.picture.model.body.Topic;
 import com.management.picture.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,8 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public int addTopicTag(int tag_id, int topic_id) {
-        return topicMapper.addTopicTag(tag_id,topic_id);
+    public int addTopicTag(List<Tag> tags, int topic_id) {
+        return topicMapper.addTopicTag(tags,topic_id);
     }
 
     @Override

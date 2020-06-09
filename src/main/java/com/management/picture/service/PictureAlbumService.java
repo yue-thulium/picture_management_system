@@ -1,5 +1,6 @@
 package com.management.picture.service;
 
+import com.management.picture.model.Tag;
 import com.management.picture.model.body.PictureAlbum;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public interface PictureAlbumService {
     /**
      * 添加标签
      */
-    int addAlbumTag(int tag_id,int album_id);
+    int addAlbumTag(List<Tag> tags, int album_id);
 
     /**
      * 删除一个图册（id删除法）

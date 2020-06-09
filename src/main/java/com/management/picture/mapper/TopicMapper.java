@@ -1,7 +1,9 @@
 package com.management.picture.mapper;
 
+import com.management.picture.model.Tag;
 import com.management.picture.model.body.Topic;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -31,7 +33,7 @@ public interface TopicMapper {
     /**
      * 添加标签
      */
-    int addTopicTag(int tag_id,int topic_id);
+    int addTopicTag(@Param("tags") List<Tag> tags,@Param("id") int topic_id);
 
     /**
      * 删除话题（ID删除法）

@@ -1,7 +1,9 @@
 package com.management.picture.mapper;
 
+import com.management.picture.model.Tag;
 import com.management.picture.model.body.PictureAlbum;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -37,7 +39,7 @@ public interface PictureAlbumMapper {
     /**
      * 添加标签
      */
-    int addAlbumTag(int tag_id,int album_id);
+    int addAlbumTag(@Param("tags") List<Tag> tags,@Param("id") int album_id);
 
     /**
      * 删除一个图册（id删除法）

@@ -44,7 +44,10 @@
     <insert id="addTopicTag">
         insert
         into topic_tag_relation
-        values (default ,#{topic_id},#{tag_id})
+        values
+            <foreach collection="tags" item="tag" separator="," index="">
+                ( default, #{id} ,#{tag.id,jdbcType=INTEGER})
+            </foreach>
     </insert>
 
     <delete id="deleteTopic">

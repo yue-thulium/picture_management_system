@@ -52,7 +52,10 @@
     <insert id="addAlbumTag">
         insert
         into album_tag_relation
-        values (default ,#{album_id}, #{tag_id})
+        values
+            <foreach collection="tags" item="tag" separator="," index="">
+                ( default, #{id} ,#{tag.id,jdbcType=INTEGER})
+            </foreach>
     </insert>
 
     <delete id="deleteAlbum">

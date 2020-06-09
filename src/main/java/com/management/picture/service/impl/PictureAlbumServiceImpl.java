@@ -1,6 +1,7 @@
 package com.management.picture.service.impl;
 
 import com.management.picture.mapper.PictureAlbumMapper;
+import com.management.picture.model.Tag;
 import com.management.picture.model.body.PictureAlbum;
 import com.management.picture.service.PictureAlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +41,8 @@ public class PictureAlbumServiceImpl implements PictureAlbumService {
     }
 
     @Override
-    public int addAlbumTag(int tag_id,int album_id) {
-        return pictureAlbumMapper.addAlbumTag(tag_id,album_id);
+    public int addAlbumTag(List<Tag> tags, int album_id) {
+        return pictureAlbumMapper.addAlbumTag(tags,album_id);
     }
 
     @Override

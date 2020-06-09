@@ -45,7 +45,7 @@ public class TopicController {
      * @param token 凭证
      * @param tittle 标题
      * @param file 图片
-     * @param tagList 分类标签 示例： [{"id":1,"tag_name":"涩图1"},{"id":6,"tag_name":"涩图5"}]
+     * @param tagList 分类标签 示例： [{"id":1,"tag_name":"涩图1"},{"id":3,"tag_name":"涩图5"}]
      * @param text 内容
      * @return
      * @throws IOException
@@ -76,9 +76,7 @@ public class TopicController {
 
     private void addTags(String tagList,int topicID) {
         List<Tag> tags = JSON.parseArray(tagList,Tag.class);
-        for (Tag tag: tags) {
-            topicService.addTopicTag(tag.getId(),topicID);
-        }
+        topicService.addTopicTag(tags,topicID);
     }
 
     /**

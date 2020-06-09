@@ -1,5 +1,6 @@
 package com.management.picture.service;
 
+import com.management.picture.model.Tag;
 import com.management.picture.model.body.Topic;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public interface TopicService {
     /**
      * 添加标签
      */
-    int addTopicTag(int tag_id,int topic_id);
+    int addTopicTag(List<Tag> tags, int topic_id);
 
     /**
      * 删除话题（ID删除法）

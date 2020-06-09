@@ -73,10 +73,7 @@ public class PictureAlbumController {
 
     private void addTags(String tagList,int albumID) {
         List<Tag> tags = JSON.parseArray(tagList,Tag.class);
-
-        for (Tag tag: tags) {
-            pictureAlbumService.addAlbumTag(tag.getId(),albumID);
-        }
+            pictureAlbumService.addAlbumTag(tags,albumID);
     }
 
     /**
