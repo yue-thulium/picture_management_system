@@ -5,9 +5,15 @@ import com.management.picture.model.Tag;
 import com.management.picture.model.body.PictureAlbum;
 import com.management.picture.service.PictureAlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 
 /**
  * Created on 2020/5/29.
@@ -20,9 +26,30 @@ public class PictureAlbumServiceImpl implements PictureAlbumService {
     @Autowired
     private PictureAlbumMapper pictureAlbumMapper;
 
+
+    @Resource(name = "myDataThreadPool")
+    private ExecutorService threadPool;
+
     @Override
     public List<PictureAlbum> getOnePageAlbum(int pageNumber) {
-        return pictureAlbumMapper.getOnePageAlbum(pageNumber);
+
+        Future future = threadPool.submit(new Callable() {
+            @Override
+            public Object call() throws Exception {
+                System.out.println(Thread.currentThread().getName());
+                return pictureAlbumMapper.getOnePageAlbum(pageNumber);
+            }
+        });
+
+        try {
+            return (List<PictureAlbum>) future.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return  null;
     }
 
     @Override
