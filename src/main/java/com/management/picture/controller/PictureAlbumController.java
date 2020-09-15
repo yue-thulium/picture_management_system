@@ -89,7 +89,7 @@ public class PictureAlbumController {
             @ApiResponse(code=40144,message="已经获取全部内容，数据库已经被翻完了"),
             @ApiResponse(code=200,message="获取成功")
     })
-//    @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
+    @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
     public ResultListModel getOnePageAlbum(@PathVariable int pageNumber) {
         List<PictureAlbum> pictureAlbumList = pictureAlbumService.getOnePageAlbum(pageNumber - 6);
         if (pictureAlbumList.size() <= 0) {
