@@ -27,7 +27,7 @@ public class PictureAlbumServiceImpl implements PictureAlbumService {
     private PictureAlbumMapper pictureAlbumMapper;
 
 
-    @Resource(name = "myDataThreadPool")
+    @Resource(name = "createThreadPool")
     private ExecutorService threadPool;
 
     @Override
@@ -36,7 +36,6 @@ public class PictureAlbumServiceImpl implements PictureAlbumService {
         Future future = threadPool.submit(new Callable() {
             @Override
             public Object call() throws Exception {
-                System.out.println(Thread.currentThread().getName());
                 return pictureAlbumMapper.getOnePageAlbum(pageNumber);
             }
         });

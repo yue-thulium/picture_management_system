@@ -3,6 +3,7 @@ package com.management.picture.controller.user;
 import com.management.picture.model.result.ResultMap;
 import com.management.picture.model.result.ResultModel;
 import com.management.picture.model.User;
+import com.management.picture.service.SingleLoginService;
 import com.management.picture.service.UserService;
 import com.management.picture.util.JWTUtil;
 import com.management.picture.util.Md5Encoding;
@@ -32,6 +33,9 @@ public class LoginAndRegisterController {
     @Autowired
     private ResultModel resultModel;
 
+    @Autowired
+    private SingleLoginService singleLoginService;
+
     /**
      * 登陆接口
      *
@@ -54,14 +58,7 @@ public class LoginAndRegisterController {
     })
     public ResultModel login(@RequestParam("username") String username,
                            @RequestParam("password") String password) {
-        String realPassword = userService.getPassword(username);
-        String inPutPassword = Md5Encoding.md5SaltEncode(password);
-        if (realPassword == null || !realPassword.equals(inPutPassword)) {
-            resultModel.setValue(ResultModel.FAIL,40011,"用户名或密码错误");
-        }  else {
-            resultModel.setValue(ResultModel.SUCCESS,200,JWTUtil.createToken(username,userService.getUserId(username)));
-        }
-        return resultModel;
+        return singleLoginService.login(username, password);
     }
 
     /**

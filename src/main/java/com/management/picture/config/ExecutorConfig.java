@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.util.concurrent.*;
@@ -44,7 +45,8 @@ public class ExecutorConfig {
     private ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("datas-thread-%d").build();
 
     @Bean
-    public ExecutorService myDataThreadPool() {
+    @Scope("prototype")
+    public ExecutorService createThreadPool() {
         logger.info("线程池创建===>开始");
         /**
          * 创建线程池

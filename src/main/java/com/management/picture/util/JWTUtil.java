@@ -25,6 +25,7 @@ public class JWTUtil {
      * 生成 token, 24h后过期
      *
      * @param username 用户名
+     * @param id 用户id
      * @return 加密的token
      */
     public static String createToken(String username,String id) {
@@ -34,6 +35,30 @@ public class JWTUtil {
         return JWT.create()
                 .withClaim("username", username)
                 .withClaim("id", id)
+                //到期时间
+                .withExpiresAt(date)
+                //创建一个新的JWT，并使用给定的算法进行标记
+                .sign(algorithm);
+    }
+
+    /**
+     * 生成 token, 24h后过期
+     *
+     * @param username 用户名
+     * @param id 用户id
+     * @param role 用户身份
+     * @param permission 用户身份对应权限
+     * @return 加密的token
+     */
+    public static String createToken(String username,String id,String role,String permission) {
+        Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
+        Algorithm algorithm = Algorithm.HMAC256(SECRET);
+        // 附带username&id信息
+        return JWT.create()
+                .withClaim("username", username)
+                .withClaim("id", id)
+                .withClaim("role",role)
+                .withClaim("permission",permission)
                 //到期时间
                 .withExpiresAt(date)
                 //创建一个新的JWT，并使用给定的算法进行标记
@@ -85,6 +110,34 @@ public class JWTUtil {
         try {
             DecodedJWT jwt = JWT.decode(token);
             return jwt.getClaim("id").asString();
+        } catch (JWTDecodeException e) {
+            return null;
+        }
+    }
+
+    /**
+     * 获得token中的信息，无需secret解密也能获得
+     *
+     * @return token中包含的用户role
+     */
+    public static String getUserRole(String token) {
+        try {
+            DecodedJWT jwt = JWT.decode(token);
+            return jwt.getClaim("role").asString();
+        } catch (JWTDecodeException e) {
+            return null;
+        }
+    }
+
+    /**
+     * 获得token中的信息，无需secret解密也能获得
+     *
+     * @return token中包含的用户permission
+     */
+    public static String getUserPermission(String token) {
+        try {
+            DecodedJWT jwt = JWT.decode(token);
+            return jwt.getClaim("permission").asString();
         } catch (JWTDecodeException e) {
             return null;
         }
